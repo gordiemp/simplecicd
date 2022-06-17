@@ -50,8 +50,6 @@ sudo mv arachni-1.5.1-0.5.12 /var/lib/jenkins/opt
 
 # Save the instance_id, repositories urls and bucket name to use in the pipeline
 sudo /bin/bash -c "echo ${repository_url} > /var/lib/jenkins/opt/repository_url"
-sudo /bin/bash -c "echo ${repository_test_url} > /var/lib/jenkins/opt/repository_test_url"
-sudo /bin/bash -c "echo ${repository_staging_url} > /var/lib/jenkins/opt/repository_staging_url"
 sudo /bin/bash -c "echo ${instance_id} > /var/lib/jenkins/opt/instance_id"
 sudo /bin/bash -c "echo ${bucket_logs_name} > /var/lib/jenkins/opt/bucket_name"
 

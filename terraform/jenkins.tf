@@ -8,7 +8,7 @@ module "jenkins" {
   device-index           = 0
   network-interface-id   = aws_network_interface.jenkins.id
   repository-url         = aws_ecr_repository.nginx-webserver.repository_url
-  instance-id            = module.jenkins.instance-id
+  instance-id            = module.nginx-webserver.instance-id
   public-dns             = aws_eip.jenkins.public_dns
   admin-username         = var.admin-username
   admin-password         = var.admin-password

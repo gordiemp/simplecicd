@@ -1,4 +1,4 @@
-module "application-server" {
+module "nginx-webserver" {
   source = "./nginx-webserver"
 
   ami-id = "ami-0742b4e673072066f" # AMI for an Amazon Linux instance for region: us-east-1
