@@ -5,13 +5,19 @@
 **/.terraform/*
 
 # .tfstate files
-*nginx_webserver.key
-*nginx_webserver.pem
+
 *terraform.tfvars
 *terraform.tfstate
+*terraform.tfstate.backup
+*.terraform.lock.hcl
+
+# key files
+*nginx_webserver.key
+*nginx_webserver.pem
 *jenkins.key
 *jenkins.pem
 
+#
 # Ignore any .tfvars files that are generated automatically for each Terraform run. Most
 # .tfvars files are managed as part of configuration and so should be included in
 # version control.
