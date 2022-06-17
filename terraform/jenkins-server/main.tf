@@ -7,8 +7,11 @@ resource "aws_instance" "default" {
     device_index = var.device-index
     network_interface_id = var.network-interface-id
   }
-  
-  user_data = templatefile("${path.module}/user_data.sh", {repository_url = var.repository-url})
+
+  user_data = <<EOF
+#! /bin/bash
+echo "Hello Jenkins Server"
+EOF
 
   tags = {
     Name = var.name

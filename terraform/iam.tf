@@ -1,10 +1,12 @@
-resource "aws_iam_instance_profile" "nginx-web-server" {
-  name = "nginx-web-server"
-  role = aws_iam_role.nginx-web-server.name
+# Web App 
+
+resource "aws_iam_instance_profile" "nginx-webserver" {
+  name = "spring-petclinic"
+  role = aws_iam_role.nginx-webserver.name
 }
 
-resource "aws_iam_role" "nginx-web-server" {
-  name = "nginx-web-server"
+resource "aws_iam_role" "nginx-webserver" {
+  name = "spring-petclinic"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -22,6 +24,39 @@ resource "aws_iam_role" "nginx-web-server" {
 
   managed_policy_arns = [aws_iam_policy.ecr-access.arn]
 }
+
+# Jenkins 
+
+resource "aws_iam_instance_profile" "jenkins" {
+  name = "jenkins"
+  role = aws_iam_role.jenkins.name
+}
+
+resource "aws_iam_role" "jenkins" {
+  name = "jenkins"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
+
+  managed_policy_arns = [aws_iam_policy.ecr-access.arn,
+    aws_iam_policy.s3-access.arn,
+    aws_iam_policy.ec2-access.arn,
+  aws_iam_policy.secrets-access.arn]
+}
+
+
+# Policy: Ec2 Reboot access
 
 resource "aws_iam_policy" "ec2-access" {
   name   = "ec2-reboot-access"
@@ -78,3 +113,40 @@ resource "aws_iam_policy" "ecr-access" {
 EOF
 }
 
+# Policy: S3 Access
+
+resource "aws_iam_policy" "s3-access" {
+  name = "s3-access"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+}
+
+# Policy: Secrets Access
+
+resource "aws_iam_policy" "secrets-access" {
+  name = "secrets-access"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "secretsmanager:GetSecretValue",
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+}

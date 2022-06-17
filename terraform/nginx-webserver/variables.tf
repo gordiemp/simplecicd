@@ -23,3 +23,11 @@ variable "key-pair" {
 variable "repository-url" {
   type = string
 }
+
+variable "device-index" {
+  type = string
+}
+
+variable "network-interface-id" {
+  type = string
+}
