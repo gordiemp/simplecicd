@@ -1,4 +1,4 @@
-# SSH key - Web App
+# SSH key - Nginx
 
 resource "aws_key_pair" "nginx-webserver-key" {
   key_name   = "nginx-webserver"
